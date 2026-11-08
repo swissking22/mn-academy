@@ -8,10 +8,10 @@ import { ImageFallback } from "@/components/ui/ImageFallback";
 import { cn } from "@/lib/utils";
 
 const aspectClasses = {
-  portrait: "aspect-[3/4]",
-  landscape: "aspect-[4/3]",
+  portrait: "aspect-3/4",
+  landscape: "aspect-4/3",
   square: "aspect-square",
-  wide: "aspect-[16/10]",
+  wide: "aspect-16/10",
 };
 
 type PortfolioCardProps = {
@@ -53,16 +53,24 @@ export function PortfolioCard({ project, className }: PortfolioCardProps) {
       <div className="flex items-start justify-between gap-3 p-5">
         <div>
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
-            {project.category === "graphic-design" ? "Graphic Design" : "Electrical"}
+            {project.category === "graphic-design"
+              ? "Graphic Design"
+              : "Electrical"}
             {" · "}
             {project.subcategory}
+            {project.year ? ` · ${project.year}` : ""}
           </p>
           <h3 className="mt-2 text-lg font-medium tracking-[-0.02em] text-charcoal">
             {project.title}
           </h3>
           {project.client ? (
             <p className="mt-1 text-sm text-muted">{project.client}</p>
+          ) : project.location ? (
+            <p className="mt-1 text-sm text-muted">{project.location}</p>
           ) : null}
+          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+            {project.description}
+          </p>
         </div>
         <ArrowUpRight
           className="mt-1 size-4 shrink-0 text-muted transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-charcoal"

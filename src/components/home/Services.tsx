@@ -1,130 +1,108 @@
-"use client";
-
-import { useId, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
-  electricalServices,
-  graphicDesignServices,
-  type ServiceCategory,
+  electricalServiceList,
+  graphicDesignServiceList,
 } from "@/data/services";
-import { cn } from "@/lib/utils";
-
-function ServiceAccordion({
-  categories,
-  accent,
-}: {
-  categories: ServiceCategory[];
-  accent: "creative" | "electrical";
-}) {
-  const [openId, setOpenId] = useState<string | null>(categories[0]?.id ?? null);
-  const reduceMotion = useReducedMotion();
-  const baseId = useId();
-
-  return (
-    <div className="divide-y divide-border border-y border-border">
-      {categories.map((category) => {
-        const open = openId === category.id;
-        const panelId = `${baseId}-${category.id}-panel`;
-        const buttonId = `${baseId}-${category.id}-button`;
-
-        return (
-          <div key={category.id}>
-            <button
-              type="button"
-              id={buttonId}
-              aria-expanded={open}
-              aria-controls={panelId}
-              onClick={() => setOpenId(open ? null : category.id)}
-              className="flex min-h-14 w-full items-center justify-between gap-4 py-4 text-left"
-            >
-              <div>
-                <p className="text-lg font-medium tracking-[-0.02em] text-charcoal">
-                  {category.title}
-                </p>
-                <p className="mt-1 text-sm text-muted">{category.description}</p>
-              </div>
-              <ChevronDown
-                className={cn(
-                  "size-5 shrink-0 text-muted transition-transform duration-300",
-                  open && "rotate-180",
-                )}
-                aria-hidden
-              />
-            </button>
-
-            <AnimatePresence initial={false}>
-              {open ? (
-                <motion.div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden"
-                >
-                  <ul className="grid gap-2 pb-5 sm:grid-cols-2">
-                    {category.items.map((item) => (
-                      <li
-                        key={item}
-                        className={cn(
-                          "border-l-2 pl-3 text-sm text-muted",
-                          accent === "creative"
-                            ? "border-creative/40"
-                            : "border-electrical/50",
-                        )}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 export function Services() {
   return (
-    <section className="border-y border-border bg-surface py-20 sm:py-24">
+    <section className="border-y border-border bg-surface py-16 sm:py-20">
       <Container size="wide">
         <FadeIn>
-          <SectionHeading
-            eyebrow="Services"
-            title="What we deliver"
-            description="Grouped by discipline — expand a category to see the full service list."
-          />
+          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted">
+            Services
+          </p>
+          <h2 className="mt-3 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.04em] text-charcoal sm:text-4xl">
+            What we deliver
+          </h2>
         </FadeIn>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-14">
           <FadeIn delay={0.05}>
-            <div>
-              <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-creative">
-                Graphic Design
-              </p>
-              <ServiceAccordion categories={graphicDesignServices} accent="creative" />
-            </div>
+            <ServiceColumn
+              label="Graphic Design"
+              href="/graphic-design"
+              accent="creative"
+              services={graphicDesignServiceList.slice(0, 8)}
+              moreCount={graphicDesignServiceList.length - 8}
+            />
           </FadeIn>
-
           <FadeIn delay={0.1}>
-            <div>
-              <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-electrical">
-                Electrical
-              </p>
-              <ServiceAccordion categories={electricalServices} accent="electrical" />
-            </div>
+            <ServiceColumn
+              label="Electrical Services"
+              href="/electrical"
+              accent="electrical"
+              services={electricalServiceList.slice(0, 8)}
+              moreCount={electricalServiceList.length - 8}
+            />
           </FadeIn>
         </div>
       </Container>
     </section>
+  );
+}
+
+function ServiceColumn({
+  label,
+  href,
+  accent,
+  services,
+  moreCount,
+}: {
+  label: string;
+  href: string;
+  accent: "creative" | "electrical";
+  services: readonly string[];
+  moreCount: number;
+}) {
+  return (
+    <div>
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <p
+          className={
+            accent === "creative"
+              ? "text-[11px] font-medium uppercase tracking-[0.22em] text-creative"
+              : "text-[11px] font-medium uppercase tracking-[0.22em] text-electrical"
+          }
+        >
+          {label}
+        </p>
+        <Link
+          href={href}
+          className="inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-charcoal"
+        >
+          Explore
+          <ArrowUpRight className="size-3.5" aria-hidden />
+        </Link>
+      </div>
+
+      <ul className="grid gap-2 sm:grid-cols-2">
+        {services.map((service) => (
+          <li
+            key={service}
+            className={
+              accent === "creative"
+                ? "border-l-2 border-creative/40 pl-3 text-sm text-muted"
+                : "border-l-2 border-electrical/50 pl-3 text-sm text-muted"
+            }
+          >
+            {service}
+          </li>
+        ))}
+      </ul>
+
+      {moreCount > 0 ? (
+        <p className="mt-4 text-sm text-muted">
+          +{moreCount} more on the{" "}
+          <Link href={href} className="underline underline-offset-4">
+            {label.toLowerCase()} page
+          </Link>
+          .
+        </p>
+      ) : null}
+    </div>
   );
 }

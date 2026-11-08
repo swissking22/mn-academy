@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/contact/WhatsAppButton";
 
 export function ContactHero() {
   return (
@@ -23,12 +25,18 @@ export function ContactHero() {
             Contact
           </p>
           <h1 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tighter sm:text-5xl lg:text-6xl">
-            Let&apos;s work together.
+            Request a Project
           </h1>
           <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-charcoal-muted sm:text-lg">
-            Have a design project, electrical installation or technical request?
-            Let&apos;s discuss it.
+            Graphic Design or Electrical Services in Yaoundé, Cameroon. Get a
+            quote — WhatsApp preferred.
           </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button href="#quote-form" variant="dark" size="lg">
+              Get a Quote
+            </Button>
+            <WhatsAppButton context="quote" size="lg" variant="whatsapp" />
+          </div>
         </FadeIn>
       </Container>
     </section>

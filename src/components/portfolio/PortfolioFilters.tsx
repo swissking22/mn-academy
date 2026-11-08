@@ -6,8 +6,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   electricalSubcategories,
   filterProjects,
+  getProjectsByCategory,
   graphicSubcategories,
   type PortfolioCategory,
+  type PortfolioProject,
 } from "@/data/portfolio";
 import { PortfolioCard } from "@/components/portfolio/PortfolioCard";
 import { cn } from "@/lib/utils";
@@ -23,11 +25,34 @@ function normalizeCategory(value: string | null): "all" | PortfolioCategory {
   return "all";
 }
 
+function ProjectGrid({ projects }: { projects: PortfolioProject[] }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div layout className="mt-6 columns-1 gap-5 sm:columns-2 lg:columns-3">
+      <AnimatePresence mode="popLayout">
+        {projects.map((project) => (
+          <motion.div
+            key={project.id}
+            layout={!reduceMotion}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-5 break-inside-avoid"
+          >
+            <PortfolioCard project={project} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export function PortfolioFilters() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const reduceMotion = useReducedMotion();
 
   const category = normalizeCategory(searchParams.get("category"));
   const subcategory = searchParams.get("subcategory") ?? "All";
@@ -42,6 +67,15 @@ export function PortfolioFilters() {
   const projects = useMemo(
     () => filterProjects(category, subcategory),
     [category, subcategory],
+  );
+
+  const graphicProjects = useMemo(
+    () => getProjectsByCategory("graphic-design"),
+    [],
+  );
+  const electricalProjects = useMemo(
+    () => getProjectsByCategory("electrical"),
+    [],
   );
 
   function updateParams(next: { category?: string; subcategory?: string }) {
@@ -82,7 +116,7 @@ export function PortfolioFilters() {
                 "inline-flex min-h-11 items-center rounded-md px-4 text-sm transition-colors",
                 active
                   ? "bg-charcoal text-white"
-                  : "bg-white text-muted hover:text-charcoal border border-border",
+                  : "border border-border bg-white text-muted hover:text-charcoal",
               )}
             >
               {filter.label}
@@ -107,7 +141,7 @@ export function PortfolioFilters() {
                 aria-selected={active}
                 onClick={() => updateParams({ subcategory: item })}
                 className={cn(
-                  "inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-sm transition-colors",
+                  "inline-flex min-h-10 shrink-0 items-center rounded-md px-4 text-sm transition-colors",
                   active
                     ? category === "graphic-design"
                       ? "bg-creative-soft text-creative"
@@ -122,35 +156,45 @@ export function PortfolioFilters() {
         </div>
       ) : null}
 
-      <p className="mt-8 text-sm text-muted">
-        {projects.length} project{projects.length === 1 ? "" : "s"}
-      </p>
+      {category === "all" ? (
+        <div className="mt-10 space-y-14">
+          <section>
+            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-creative">
+              Graphic Design
+            </h2>
+            <p className="mt-2 text-sm text-muted">
+              {graphicProjects.length} project
+              {graphicProjects.length === 1 ? "" : "s"}
+            </p>
+            <ProjectGrid projects={graphicProjects} />
+          </section>
 
-      <motion.div layout className="mt-6 columns-1 gap-5 sm:columns-2 lg:columns-3">
-        <AnimatePresence mode="popLayout">
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout={!reduceMotion}
-              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-5 break-inside-avoid"
-            >
-              <PortfolioCard project={project} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-
-      {projects.length === 0 ? (
-        <div className="mt-10 border border-dashed border-border px-6 py-16 text-center">
-          <p className="text-base text-muted">
-            No projects in this filter yet. Check back as new work is added.
-          </p>
+          <section>
+            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-electrical">
+              Electrical
+            </h2>
+            <p className="mt-2 text-sm text-muted">
+              {electricalProjects.length} project
+              {electricalProjects.length === 1 ? "" : "s"}
+            </p>
+            <ProjectGrid projects={electricalProjects} />
+          </section>
         </div>
-      ) : null}
+      ) : (
+        <>
+          <p className="mt-8 text-sm text-muted">
+            {projects.length} project{projects.length === 1 ? "" : "s"}
+          </p>
+          <ProjectGrid projects={projects} />
+          {projects.length === 0 ? (
+            <div className="mt-10 border border-dashed border-border px-6 py-16 text-center">
+              <p className="text-base text-muted">
+                No projects in this filter yet. Check back as new work is added.
+              </p>
+            </div>
+          ) : null}
+        </>
+      )}
     </div>
   );
 }
