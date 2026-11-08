@@ -7,13 +7,13 @@ export function Experience() {
   const { graphicDesign, electrical } = company.experience;
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-16 sm:py-20">
       <Container size="wide">
         <FadeIn>
           <SectionHeading
             eyebrow="Experience & Credentials"
-            title="Grounded in training. Proven in practice."
-            description="Credentials and experience that support both creative and technical delivery — without exaggeration."
+            title="Separate timelines. Clear credentials."
+            description="Graphic Design and Electrical Services developed on different tracks — presented accurately."
           />
         </FadeIn>
 
@@ -57,12 +57,16 @@ export function Experience() {
                 Electrical
               </p>
               <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-charcoal">
-                {electrical.practicalSince}
+                {electrical.trainingSince}
               </h3>
-              <p className="mt-2 text-base text-muted">{electrical.professionalSince}</p>
+              <p className="mt-2 text-base text-muted">
+                {electrical.professionalSince}
+              </p>
 
               <div className="mt-8">
-                <p className="text-sm font-medium text-charcoal">Education</p>
+                <p className="text-sm font-medium text-charcoal">
+                  Education &amp; training
+                </p>
                 <ul className="mt-3 space-y-2">
                   {electrical.education.map((item) => (
                     <li key={item} className="text-sm leading-relaxed text-muted">
@@ -73,9 +77,8 @@ export function Experience() {
               </div>
 
               <p className="mt-8 text-sm leading-relaxed text-muted">
-                {electrical.training}
+                {electrical.note}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{electrical.note}</p>
             </article>
           </FadeIn>
         </div>

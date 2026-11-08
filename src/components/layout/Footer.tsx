@@ -4,6 +4,8 @@ import { Container } from "@/components/ui/Container";
 
 const footerLinks = [
   { href: "/", label: "Home" },
+  { href: "/graphic-design", label: "Graphic Design" },
+  { href: "/electrical", label: "Electrical" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ];
@@ -25,7 +27,7 @@ export function Footer() {
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-charcoal-muted">
               <span>Graphic Design</span>
               <span className="text-white/20">/</span>
-              <span>Electrical</span>
+              <span>Electrical Services</span>
             </div>
           </div>
 
@@ -55,13 +57,19 @@ export function Footer() {
               <li>{company.location}</li>
               {company.phones.map((phone) => (
                 <li key={phone}>
-                  <a href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-white">
+                  <a
+                    href={`tel:${phone.replace(/\s/g, "")}`}
+                    className="hover:text-white"
+                  >
                     {phone}
                   </a>
                 </li>
               ))}
               <li>
-                <a href={`mailto:${company.email}`} className="hover:text-white break-all">
+                <a
+                  href={`mailto:${company.email}`}
+                  className="break-all hover:text-white"
+                >
                   {company.email}
                 </a>
               </li>
@@ -73,7 +81,7 @@ export function Footer() {
           <p>
             © {year} {company.name}. All rights reserved.
           </p>
-          <p>Yaoundé, Cameroon</p>
+          <p>{company.location}</p>
         </div>
       </Container>
     </footer>

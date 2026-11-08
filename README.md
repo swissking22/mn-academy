@@ -2,7 +2,7 @@
 
 Premium company website for **MN Academy** — Creative & Technical Solutions.
 
-Professional graphic design and electrical services based in Yaoundé, Cameroon.
+Professional Graphic Design and Electrical Services based in Yaoundé, Cameroon.
 
 ## Stack
 
@@ -30,12 +30,19 @@ Editable content lives in:
 - `src/data/portfolio.ts`
 - `src/data/testimonials.ts`
 
-Add portfolio images under `public/portfolio/` and reference them from `portfolio.ts`.
+Add portfolio images under `public/images/portfolio/` and reference them from `portfolio.ts`.
 
 ## Routes
 
 - `/` — Home
+- `/graphic-design` — Graphic Design division
+- `/electrical` — Electrical Services division
 - `/portfolio` — Work with category filters
 - `/portfolio/[slug]` — Project detail
-- `/contact` — Quote / WhatsApp
-# mn-academy
+- `/contact` — Request a Project / Get a Quote
+
+## Still to supply
+
+- Final Graphic Design and Electrical photography
+- Client testimonials and review photos
+- Leadership portrait, certificates, social links, domain

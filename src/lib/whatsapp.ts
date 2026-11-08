@@ -31,7 +31,7 @@ export function getWhatsAppMessage(context: WhatsAppContext = "general") {
 
 export function getWhatsAppUrl(
   context: WhatsAppContext = "general",
-  phone = company.phones[0],
+  phone: string = company.phones[0],
 ) {
   const number = phoneToWhatsApp(phone);
   const text = encodeURIComponent(getWhatsAppMessage(context));

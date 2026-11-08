@@ -1,6 +1,6 @@
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { company } from "@/data/company";
-import { WhatsAppButton } from "@/components/contact/WhatsAppButton";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 export function ContactDetails() {
   return (
@@ -10,7 +10,7 @@ export function ContactDetails() {
           Contact details
         </h2>
         <p className="mt-2 text-sm text-muted">
-          Preferred contact method: {company.preferredContact}
+          Preferred contact: {company.preferredContact}
         </p>
       </div>
 
@@ -18,7 +18,9 @@ export function ContactDetails() {
         <div className="flex gap-4">
           <Phone className="mt-0.5 size-5 shrink-0 text-creative" aria-hidden />
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">Phone</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">
+              Phone
+            </p>
             <ul className="mt-2 space-y-1">
               {company.phones.map((phone) => (
                 <li key={phone}>
@@ -35,20 +37,38 @@ export function ContactDetails() {
         </div>
 
         <div className="flex gap-4">
-          <MessageCircle className="mt-0.5 size-5 shrink-0 text-[#25D366]" aria-hidden />
+          <MessageCircle
+            className="mt-0.5 size-5 shrink-0 text-[#25D366]"
+            aria-hidden
+          />
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">WhatsApp</p>
-            <p className="mt-2 text-base text-charcoal">Both numbers available.</p>
-            <div className="mt-3">
-              <WhatsAppButton context="general" size="sm" label="Message on WhatsApp" />
-            </div>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">
+              WhatsApp
+            </p>
+            <p className="mt-2 text-sm text-muted">Both numbers available.</p>
+            <ul className="mt-3 space-y-2">
+              {company.phones.map((phone) => (
+                <li key={`wa-${phone}`}>
+                  <a
+                    href={getWhatsAppUrl("general", phone)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-charcoal transition-colors hover:text-[#25D366]"
+                  >
+                    {phone}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
         <div className="flex gap-4">
           <Mail className="mt-0.5 size-5 shrink-0 text-creative" aria-hidden />
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">Email</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">
+              Email
+            </p>
             <a
               href={`mailto:${company.email}`}
               className="mt-2 block break-all text-base text-charcoal transition-colors hover:text-creative"
@@ -59,9 +79,14 @@ export function ContactDetails() {
         </div>
 
         <div className="flex gap-4">
-          <MapPin className="mt-0.5 size-5 shrink-0 text-electrical" aria-hidden />
+          <MapPin
+            className="mt-0.5 size-5 shrink-0 text-electrical"
+            aria-hidden
+          />
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">Location</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted">
+              Location
+            </p>
             <p className="mt-2 text-base text-charcoal">{company.location}</p>
           </div>
         </div>

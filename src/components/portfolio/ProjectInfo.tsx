@@ -50,7 +50,7 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
         </div>
       ) : null}
 
-      {project.review ? <ClientReview review={project.review} /> : null}
+      <ClientReview review={project.review} />
     </div>
   );
 }

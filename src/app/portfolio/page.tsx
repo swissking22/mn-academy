@@ -6,7 +6,7 @@ import { PortfolioFilters } from "@/components/portfolio/PortfolioFilters";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Creative projects and technical solutions delivered by MN Academy — graphic design and electrical work.",
+    "Graphic Design and Electrical project portfolio from MN Academy — visual work and technical installations.",
   alternates: {
     canonical: "/portfolio",
   },
@@ -24,14 +24,18 @@ export default function PortfolioPage() {
             Our Work
           </h1>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Creative projects and technical solutions delivered by MN Academy.
+            Graphic Design and Electrical projects — filter by division and
+            category.
           </p>
         </div>
 
         <div className="mt-10">
           <Suspense
             fallback={
-              <div className="h-40 animate-pulse rounded-md bg-border/60" aria-hidden />
+              <div
+                className="h-40 animate-pulse rounded-md bg-border/60"
+                aria-hidden
+              />
             }
           >
             <PortfolioFilters />

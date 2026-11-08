@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/graphic-design", label: "Graphic Design" },
+  { href: "/electrical", label: "Electrical" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ];
@@ -58,7 +60,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
           {navLinks.map((link) => {
             const active =
               link.href === "/"
@@ -87,13 +89,13 @@ export function Header() {
 
         <div className="hidden md:block">
           <Button href="/contact" size="sm">
-            Request a Quote
+            Request a Project
           </Button>
         </div>
 
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-md text-charcoal md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-md text-charcoal lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -111,7 +113,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-border bg-background md:hidden"
+            className="overflow-hidden border-t border-border bg-background lg:hidden"
           >
             <nav className="flex flex-col gap-1 px-5 py-6" aria-label="Mobile">
               {navLinks.map((link, index) => {
@@ -141,7 +143,7 @@ export function Header() {
               })}
               <div className="mt-4" onClick={closeMenu}>
                 <Button href="/contact" className="w-full">
-                  Request a Quote
+                  Request a Project
                 </Button>
               </div>
             </nav>

@@ -7,7 +7,7 @@ import { ChevronDown, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ClientReviewProps = {
-  review: {
+  review?: {
     clientName: string;
     clientPhoto?: string;
     rating: number;
@@ -29,7 +29,7 @@ export function ClientReview({ review }: ClientReviewProps) {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}
-        className="flex min-h-14 w-full items-center justify-between gap-3 px-5 py-4 text-left"
+        className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-left"
       >
         <span className="text-sm font-medium tracking-[-0.01em] text-charcoal">
           Client Review
@@ -55,51 +55,61 @@ export function ClientReview({ review }: ClientReviewProps) {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="border-t border-border px-5 py-5">
-              <div className="flex items-center gap-3">
-                {review.clientPhoto ? (
-                  <Image
-                    src={review.clientPhoto}
-                    alt={review.clientName}
-                    width={44}
-                    height={44}
-                    className="size-11 rounded-full object-cover"
-                  />
-                ) : (
-                  <div
-                    className="flex size-11 items-center justify-center rounded-full bg-charcoal text-sm font-medium text-white"
-                    aria-hidden
-                  >
-                    {review.clientName
-                      .split(" ")
-                      .map((part) => part[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </div>
-                )}
-                <div>
-                  <p className="text-sm font-medium text-charcoal">{review.clientName}</p>
-                  <div
-                    className="mt-1 flex items-center gap-0.5"
-                    aria-label={`${review.rating} out of 5 stars`}
-                  >
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`size-3.5 ${
-                          i < review.rating
-                            ? "fill-electrical text-electrical"
-                            : "text-border-strong"
-                        }`}
-                        aria-hidden
+            <div className="border-t border-border px-4 py-4">
+              {review ? (
+                <>
+                  <div className="flex items-center gap-3">
+                    {review.clientPhoto ? (
+                      <Image
+                        src={review.clientPhoto}
+                        alt={review.clientName}
+                        width={40}
+                        height={40}
+                        className="size-10 rounded-full object-cover"
                       />
-                    ))}
+                    ) : (
+                      <div
+                        className="flex size-10 items-center justify-center rounded-full bg-charcoal text-xs font-medium text-white"
+                        aria-hidden
+                      >
+                        {review.clientName
+                          .split(" ")
+                          .map((part) => part[0])
+                          .slice(0, 2)
+                          .join("")}
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-sm font-medium text-charcoal">
+                        {review.clientName}
+                      </p>
+                      <div
+                        className="mt-1 flex items-center gap-0.5"
+                        aria-label={`${review.rating} out of 5 stars`}
+                      >
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`size-3.5 ${
+                              i < review.rating
+                                ? "fill-electrical text-electrical"
+                                : "text-border-strong"
+                            }`}
+                            aria-hidden
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <p className="mt-4 text-pretty text-sm leading-relaxed text-muted sm:text-base">
-                “{review.text}”
-              </p>
+                  <p className="mt-3 text-pretty text-sm leading-relaxed text-muted">
+                    “{review.text}”
+                  </p>
+                </>
+              ) : (
+                <p className="text-sm text-muted">
+                  Client review will appear here once approved for publication.
+                </p>
+              )}
             </div>
           </motion.div>
         ) : null}

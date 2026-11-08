@@ -34,7 +34,6 @@ export const graphicSubcategories = [
   "Covers",
   "Social Media",
   "Events",
-  "Church",
 ] as const;
 
 export const electricalSubcategories = [
@@ -51,6 +50,11 @@ export const electricalSubcategories = [
 /**
  * Replace these paths with official project photography when available.
  * Current assets live under /public/images/portfolio.
+ *
+ * Year notes (verify before final publication):
+ * - Graphic Design professional work: late 2023 onward
+ * - Electrical professional work: 2023 onward (training/practice from 2022)
+ * - Placeholder years below should be confirmed against actual project dates
  */
 export const portfolioProjects: PortfolioProject[] = [
   {
@@ -97,12 +101,12 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: "light-work-mission-materials",
     title: "Light Work Mission Visual Materials",
     category: "graphic-design",
-    subcategory: "Church",
+    subcategory: "Events",
     client: "Light Work Mission International Boarding and College School",
     location: "Cameroon",
     year: "2024",
     description:
-      "Visual communication materials supporting institutional messaging with clarity and dignity.",
+      "Church and institutional visual materials supporting clear, dignified messaging.",
     coverImage: "/images/portfolio/graphic/church-1.jpg",
     images: ["/images/portfolio/graphic/church-1.jpg"],
     featured: true,

@@ -60,7 +60,10 @@ export function ContactForm() {
   }
 
   return (
-    <div className="border border-border bg-surface p-6 sm:p-8">
+    <div
+      id="quote-form"
+      className="scroll-mt-24 border border-border bg-surface p-6 sm:p-8"
+    >
       <h2 className="text-2xl font-semibold tracking-[-0.03em] text-charcoal">
         Request a Project / Get a Quote
       </h2>

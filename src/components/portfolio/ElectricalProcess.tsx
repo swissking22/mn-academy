@@ -63,8 +63,16 @@ export function ElectricalProcess({ project }: ProcessGalleryProps) {
   return (
     <div className="space-y-10">
       <Stage title="Before" images={project.beforeImages} project={project} />
-      <Stage title="During" images={project.duringImages} project={project} />
-      <Stage title="After" images={project.afterImages} project={project} />
+      <Stage
+        title="Installation / Process"
+        images={project.duringImages}
+        project={project}
+      />
+      <Stage
+        title="Completed"
+        images={project.afterImages}
+        project={project}
+      />
     </div>
   );
 }

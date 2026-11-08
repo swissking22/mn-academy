@@ -7,7 +7,7 @@ import { FadeIn } from "@/components/ui/FadeIn";
 
 export function HomeCTA() {
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-16 sm:py-20">
       <Container size="wide">
         <FadeIn>
           <div className="relative overflow-hidden border border-border bg-charcoal px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-16">
@@ -26,15 +26,14 @@ export function HomeCTA() {
                 Start a project
               </p>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                Ready to design something clear — or power something reliable?
+                Request a Project or Get a Quote
               </h2>
               <p className="mt-4 text-pretty text-base leading-relaxed text-charcoal-muted sm:text-lg">
-                Tell us about your graphic design brief or electrical request.
-                Preferred contact is WhatsApp.
+                Graphic Design or Electrical Services — WhatsApp is preferred.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button href="/contact" variant="dark" size="lg">
-                  Request a Quote
+                  Request a Project
                   <ArrowUpRight className="size-4" aria-hidden />
                 </Button>
                 <WhatsAppButton context="quote" size="lg" variant="whatsapp" />

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "CCTV",
     "creative and technical solutions",
   ],
-  authors: [{ name: company.ceo }],
+  authors: [{ name: company.ceo.name }],
   creator: company.name,
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
